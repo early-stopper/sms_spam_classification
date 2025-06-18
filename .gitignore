@@ -192,3 +192,7 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Ignore everything in data, use .gitkeep to keep folders visible
+data/*
+!data/.gitkeep
