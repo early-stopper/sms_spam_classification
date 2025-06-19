@@ -198,4 +198,8 @@ data/*
 !data/.gitkeep
 
 # Ignore logs produced by MLflow
+mlruns/
 scripts/mlruns/
+
+# Ignore results produced by HuggingFace models
+scripts/results/
