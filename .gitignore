@@ -196,3 +196,6 @@ cython_debug/
 # Ignore everything in data, use .gitkeep to keep folders visible
 data/*
 !data/.gitkeep
+
+# Ignore logs produced by MLflow
+scripts/mlruns/
