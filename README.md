@@ -1,15 +1,18 @@
 # sms_spam_classification
-Running experiments on classifying spam messages in the "UCI SMS Spam Collection" dataset
+
+Running experiments on classifying spam messages in the "UCI SMS Spam Collection" dataset.
 
 ## Data
 
 The UCI spam collection can be downloaded [here](https://archive.ics.uci.edu/dataset/228/sms+spam+collection) as a ZIP
-folder. Unpacking it to the `data/uci_spam_collection/` subdirectory should reveal 2 files: the `readme` file with
-detailed information on the dataset and the `SMSSpamCollection` containing the actual data as tab-separated, headerless 
-CSV with the label `spam` or `ham` in the first column and the corresponding SMS text in the second column.
+folder. Unpacking it to the `data/uci_spam_collection/` subdirectory should reveal two files: the `readme` file with
+detailed information on the dataset and the `SMSSpamCollection` file containing the actual data as tab-separated, 
+headerless CSV with the label `spam` or `ham` in the first column and the corresponding SMS text in the second column.
 
-Run `scripts/main01_pre_process_splits.py` to read in the dataset, run cleaning steps on the text messages and to
-generate splits for traininhg and testing models. The splits are written to `data/splits`.
+Run 
+[`scripts/main01_pre_process_splits.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main01_pre_process_splits.py) 
+to read in the dataset, run cleaning steps on the text messages and to generate splits for training and testing models. 
+The splits are written to `data/splits`.
 
 ## Models
 
@@ -26,6 +29,10 @@ scores that subsequent classifiers can learn on.
 
 #### Logistic Regression
 
+Run
+[`scripts/main02_train_logistic_regression.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main02_train_logistic_regression.py)
+to train and evaluate this model.
+
 A linear classifier that learns weights `w` for each TF-IDF score array `x` and the calculates the sigmoid probability
 `1/(1+exp(<w,x>+b))` with bias `b` to determine a probability that the corresponding message is spam. During training,
 weights and biases are optimized to minimize binary cross-entropy between true and predicted labels.
@@ -35,10 +42,18 @@ a positive weight can be considered pro "spam", a negative one pro "ham".
 
 #### Supporting Vector Machine
 
+Run
+[`scripts/main03_train_support_vector_machine.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main03_train_support_vector_machine.py)
+to train and evaluate this model.
+
 Tries to separate classes by hyperplanes. Works on `<w,x>+b` just like logistic regression, but instead of modelling
 probabilities for each word, it tries to maximize the margin between classes.
 
 #### Naïve Bayes
+
+Run
+[`scripts/main04_train_naive_bayes.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main04_train_naive_bayes.py)
+to train and evaluate this model.
 
 A model based on the Bayes theorem `P(y|x)P(x) = P(y)P(x|y)` and the assumption that words are conditionally independent
 given a class, i.e. `P(x|y) = P(x_0|y)*...*P(x_n|y)` where `x_i` is the TF-IDF score of the `i`-th word.
@@ -61,6 +76,10 @@ At inference, calculate the log-probability for each class as
 
 #### Bart Large MNLI
 
+Run
+[`scripts/main05_train_bart_large_mnli.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main05_train_bart_large_mnli.py)
+to evaluate this model.
+
 A zero-shot classification model based on the BART transformer architecture, fine-tuned on the Multi-Genre Natural
 Language Inference dataset. It is a natural language inference (NLI) model meaning it gets presented 2 text fragments,
 a premise and a hypothesis, and its purpose is to decide whether the premise entails, contradicts or is neutral to the
@@ -71,10 +90,14 @@ language model to be applied to texts that it did not see during training.
 
 #### DistilBERT Base Uncased
 
+Run
+[`scripts/main06_train_distilbert_base_uncased.py`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main06_train_distilbert_base_uncased.py)
+to train and evaluate this model.
+
 A lighter version of the BERT model, meant to retain most of BERT's ability to understand language, but with reduced
 size ("Base" as BERT-base) and without distinction between lower- or uppercase ("Uncased").
 
-DisltilBERT is trained by _knowledge distillation_ from a larger, pretrained BERT model: a smaller architecture that 
+DistilBERT is trained by _knowledge distillation_ from a larger, pretrained BERT model: a smaller architecture that 
 learns to mimic the output of the larger model, given an input.
 
 ## Evaluations
@@ -93,7 +116,9 @@ on a command prompt located at the root directory of this project. Then change t
 
 to initialise the MLflow server. Follow the instructions to open up the UI in the browser.
 
-Alternatively, running `scripts/main07_compare_results` once all models were trained should yield a result of the 
+Alternatively, running
+[`scripts/main07_compare_results`](https://github.com/early-stopper/sms_spam_classification/blob/main/scripts/main07_compare_results.py)
+once all models were trained should yield a result of the 
 following form:
 
 ![Metrics](images/metrics.png)
