@@ -12,7 +12,7 @@ def get_color(value: float) -> str:
     Value in (0.5, 0.75)   ==> color between 'red' and 'yellow'
     Value in (0.75, 1.0)   ==> color between 'yellow' and 'green'
     """
-    
+
     value = np.clip(value, 0.0, 1.0)
     if value <= 0.5:
         r, g, b = 255, 0, 0
