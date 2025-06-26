@@ -14,6 +14,10 @@ Run
 to read in the dataset, run cleaning steps on the text messages and to generate splits for training and testing models. 
 The splits are written to `data/splits`.
 
+With a prevalence of around 13%, the dataset show a slight imbalance in class sizes. Our evaluations below indicate that
+this is not much of a problem in general. Nevertheless, introducing sample weights or resampling could be taken into
+consideration as future steps for further improvement.
+
 ## Models
 
 Our goal is to compare modern large language models with classical approaches from natural language processing. To this

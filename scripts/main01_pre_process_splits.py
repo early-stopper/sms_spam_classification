@@ -46,7 +46,7 @@ def main():
     GREEN = '\033[92m'
     RED = '\033[91m'
     RESET = '\033[0m'
-    for i, row in data.sample(n_samples, random_state=194316).iterrows():
+    for i, row in data.sample(n_samples, random_state=511543).iterrows():
         color = RED if row['label'] else GREEN
         print(f"\n{color}Message : {row['raw_message']}")
         print(f"Cleaned : {row['message']}{RESET}")
