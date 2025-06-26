@@ -33,6 +33,15 @@ def main():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
 
+        # Save predictions
+        predictions = X_test
+        predictions['label'] = y_test.map({False: "ham", True: "spam"})
+        predictions['prediction'] = y_pred
+        predictions['prediction'] = predictions['prediction'].map({False: "ham", True: "spam"})
+        path_output = source.io.path_root/"data/naive_bayes"
+        path_output.mkdir(parents=True, exist_ok=True)
+        predictions.to_csv(path_output/"predictions.csv", index=False)
+
         # Evaluation
         metrics = sklearn.metrics.classification_report(y_test, y_pred, target_names=["ham", "spam"], output_dict=True)
         print(metrics)

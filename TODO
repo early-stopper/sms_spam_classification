@@ -1,0 +1,18 @@
+TODOs
+
+# TODO
+For faster iteration, consider using sentence embeddings (e.g., all-MiniLM-L6-v2 from sentence-transformers)
++classical classifiers.
+```
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer('all-MiniLM-L6-v2')
+embeddings = model.encode(df['message'].tolist(), convert_to_tensor=True)
+```
+
+# TODO
+Use mlflow.register_model() to register the best performing model
+
+# TODO: log artifacts
+with open("confusion_matrix.txt", "w") as f:
+    f.write(str(confusion_matrix(y_test, y_pred)))
+mlflow.log_artifact("confusion_matrix.txt")

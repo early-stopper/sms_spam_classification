@@ -1,3 +1,9 @@
+"""
+Generate datasets for training and testing models
+
+Read in raw data, apply pre-processing steps and define splits for training and testing. The results are saved as CSVs
+to data/splits/
+"""
 
 import re
 
