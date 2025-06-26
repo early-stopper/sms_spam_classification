@@ -92,3 +92,8 @@ on a command prompt located at the root directory of this project. Then change t
 ```mlflow ui```
 
 to initialise the MLflow server. Follow the instructions to open up the UI in the browser.
+
+Alternatively, running `scripts/main07_compare_results` once all models were trained should yield a result of the 
+following form:
+
+![Metrics](images/metrics.png)
