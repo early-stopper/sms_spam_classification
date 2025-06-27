@@ -37,12 +37,14 @@ def main():
     test = datasets.Dataset.from_pandas(test)
 
     # Load tokenizer and model
+    # The AutoTokenizer class automatically detects and loads the correct tokenizer class based on the model name
     model_name = "distilbert-base-uncased"
     tokenizer = transformers.AutoTokenizer.from_pretrained(model_name)
     tokenize = lambda sample: tokenizer(sample["text"], truncation=True)
     train = train.map(tokenize, batched=True)
     test = test.map(tokenize, batched=True)
 
+    # The AutoModelForSequenceClassification automatically detects and loads the model's head for classification
     classifier = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
 
     path_output = source.io.path_root/"data/distilbert_base_uncased"

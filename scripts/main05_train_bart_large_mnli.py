@@ -31,7 +31,7 @@ def main():
     classifier = transformers.pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
     labels = ["spam", "ham"]
 
-    # Get top predicted label
+    # Call to get top predicted label
     predict_label = lambda text: classifier(text, labels)["labels"][0]
 
     with mlflow.start_run(run_name="bart-large-mnli"):
